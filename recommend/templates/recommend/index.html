@@ -1,0 +1,11 @@
+{% extends 'recommend/base.html' %} {% load static %} {% block content %}
+{% if user.is_authenticated %}
+<h1>Hello, {{ user.username }}!</h1>
+{% else %}
+<h1>Hello, World!</h1>
+Please <a href="">login</a> or <a href="{% url 'signup' %}">signup</a>
+{% endif %}
+<!-- <div class="spinner-border text-primary" role="status">
+  <span class="sr-only">Loading...</span>
+</div> -->
+{% endblock %}

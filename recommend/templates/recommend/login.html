@@ -1,0 +1,6 @@
+{% if user and not user.is_anonymous %}
+  <a>Hello, {{ user.username }}!</a>
+  <br>
+  <a href="/logout">Logout</a>
+{% else %}
+{% endif %}
