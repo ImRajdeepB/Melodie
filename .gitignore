@@ -1,8 +1,9 @@
-.idea
+.idea/
 *.pyc
 *~
 __pycache__
-venv
+venv/
 db.sqlite3
 /static
 .DS_Store
+.vscode/
