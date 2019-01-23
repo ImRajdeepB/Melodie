@@ -9,7 +9,7 @@ class AppUser(models.Model):
         User, related_name='user', on_delete=models.CASCADE)
     phone = models.CharField(max_length=20, default='', blank=True)
     # user_id = models.CharField(max_length=50)
-    listens = models.ManyToManyField('Listen')
+    # listens = models.ManyToManyField('Listen')
 
     def __str__(self):
         return self.user.username
@@ -23,6 +23,7 @@ class Song(models.Model):
     year = models.CharField(max_length=4)
     genre = models.CharField(max_length=50, default='', blank=True)
     audio_file = models.FileField(upload_to='music')
+    # listens = models.IntegerField(default=0, blank=True)
     # listeners = models.ManyToManyField(AppUser, through='Listen')
 
     def __str__(self):
@@ -32,7 +33,7 @@ class Song(models.Model):
 class Listen(models.Model):
     container = models.ForeignKey(
         Song, db_index=True, on_delete=models.CASCADE)
-    # app_user = models.ForeignKey(AppUser, on_delete=models.CASCADE)
+    app_user = models.ManyToManyField(AppUser)
     # song = models.ForeignKey(Song, on_delete=models.CASCADE)
     listen_count = models.IntegerField(default=0)
 

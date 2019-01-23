@@ -1,9 +1,10 @@
 import numpy as np
-
-# Class for Popularity based Recommender System model
+import pandas as pd
 
 
 class popularity_recommender_py():
+    """Popularity based Recommender System model."""
+
     def __init__(self):
         self.train_data = None
         self.user_id = None
@@ -48,8 +49,9 @@ class popularity_recommender_py():
         return user_recommendations
 
 
-# Class for Item similarity based Recommender System model
 class item_similarity_recommender_py():
+    """Item similarity based Recommender System model."""
+
     def __init__(self):
         self.train_data = None
         self.user_id = None
@@ -61,10 +63,11 @@ class item_similarity_recommender_py():
 
     # Get unique items (songs) corresponding to a given user
     def get_user_items(self, user):
-        user_data = self.train_data[self.train_data[self.user_id] == user]
-        user_items = list(user_data[self.item_id].unique())
+        if user is not None:
+            user_data = self.train_data[self.train_data[self.user_id] == user]
+            user_items = list(user_data[self.item_id].unique())
 
-        return user_items
+            return user_items
 
     # Get unique users for a given item (song)
     def get_item_users(self, item):
@@ -144,7 +147,7 @@ class item_similarity_recommender_py():
 
         # Create a dataframe from the following
         columns = ['user_id', 'song', 'score', 'rank']
-        # index = np.arange(1) # array of numbers for the number of samples
+        index = np.arange(1) # array of numbers for the number of samples
         df = pd.DataFrame(columns=columns)
 
         # Fill the dataframe with top 10 item based recommendations
