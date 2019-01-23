@@ -1,8 +1,37 @@
 from django.shortcuts import render
-from django.views import View
+from django.views import View, generic
 from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
+
+
 from .models import AppUser, Song, Listen, Album
 from .forms import AppUserForm
+
+
+def home(request):
+    return render(request, 'recommend/index.html')
+
+
+def login_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        # Redirect to a success page.
+        return HttpResponseRedirect('/')
+    else:
+        # Return an 'invalid login' error message.
+        return HttpResponse('invalid')
+
+
+class SignUp(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'recommend/signup.html'
 
 
 class HomeView(TemplateView):

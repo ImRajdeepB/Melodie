@@ -5,5 +5,5 @@ from .models import AppUser, Song, Listen, Album
 
 class AppUserForm(forms.ModelForm):
     class Meta():
-        model = User
-        fields = ('email',)
+        model = AppUser
+        fields = ('user', )

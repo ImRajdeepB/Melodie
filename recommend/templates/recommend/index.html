@@ -3,7 +3,7 @@
 <h1>Hello, {{ user.username }}!</h1>
 {% else %}
 <h1>Hello, World!</h1>
-Please <a href="">login</a> or <a href="{% url 'signup' %}">signup</a>
+Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'signup' %}">signup</a>
 {% endif %}
 <!-- <div class="spinner-border text-primary" role="status">
   <span class="sr-only">Loading...</span>

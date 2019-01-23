@@ -1,0 +1,13 @@
+{% extends 'recommend/base.html' %} {% load static %} 
+{% block title %}Sign Up{%endblock %}
+{% block content %}
+<h2>Sign up</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Sign up</button>
+</form>
+<!-- <div class="spinner-border text-primary" role="status">
+  <span class="sr-only">Loading...</span>
+</div> -->
+{% endblock %}
