@@ -12,7 +12,11 @@ from .forms import AppUserForm
 
 
 def home(request):
-    return render(request, 'recommend/index.html')
+    if request.user.is_authenticated:
+        songs = Song.objects.all()
+        albums = Album.objects.all()
+        context = {'albums': albums, 'songs': songs}
+    return render(request, 'recommend/index.html', context=context)
 
 
 def login_view(request):

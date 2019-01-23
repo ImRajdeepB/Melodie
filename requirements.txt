@@ -1,6 +1,9 @@
-dataclasses==0.6
+celery==4.2.1
 Django==2.1.5
-djangorestframework==3.9.1
 djongo==1.2.31
-mongoengine==0.16.3
+numpy==1.16.0
+pandas==0.23.4
+Pillow==5.4.1
 pymongo==3.7.2
+redis==3.0.1
+scikit-learn==0.20.2

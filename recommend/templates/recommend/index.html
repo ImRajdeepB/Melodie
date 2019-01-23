@@ -1,6 +1,15 @@
 {% extends 'recommend/base.html' %} {% load static %} {% block content %}
 {% if user.is_authenticated %}
 <h1>Hello, {{ user.username }}!</h1>
+<h3>Albums</h3>
+{% for album in albums %}
+<img width="200px" height="200px" src="{{ album.album_logo.url }}">
+{{ album.title }}
+{% endfor %}
+<h3>Songs</h3>
+{% for song in songs %}
+<a target="_blank" href="{{ song.audio_file.url }}">{{ song.title }} - {{ song.artist_name }}</a> <br>
+{% endfor %}
 {% else %}
 <h1>Hello, World!</h1>
 Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'signup' %}">signup</a>

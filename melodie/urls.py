@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
+from django.conf.urls.static import static
+from .settings import DEBUG, MEDIA_URL, MEDIA_ROOT
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,3 +25,6 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]
+
+if DEBUG:
+    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
