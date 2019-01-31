@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,8 +12,11 @@
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <link
+      rel="import"
+      href="{% static 'bower_components/paper-audio-player/paper-audio-player.html' %}"
+    />
+    {% block styling %}{% endblock %}
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -80,6 +84,7 @@
       </div>
     </nav>
     {% block content %} {% endblock %}
+    <script src="{% static 'bower_components/webcomponentsjs/webcomponents-lite.js' %}"></script>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -95,5 +100,13 @@
       integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
       crossorigin="anonymous"
     ></script>
+    <script>
+      $(".mysong").each(function() {
+        $("#paper_" + $(this).attr("id")).hide();
+        $(this).mousedown(function() {
+          $("#paper_" + $(this).attr("id")).toggle();
+        });
+      });
+    </script>
   </body>
 </html>

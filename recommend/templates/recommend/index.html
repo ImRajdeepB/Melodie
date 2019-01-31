@@ -1,4 +1,10 @@
-{% extends 'recommend/base.html' %} {% load static %} {% block content %}
+{% extends 'recommend/base.html' %} {% load static %}
+{% get_media_prefix as MP %}
+{% block styling %}
+<style>
+</style>
+{% endblock %}
+{% block content %}
 {% if user.is_authenticated %}
 <h1>Hello, {{ user.username }}!</h1>
 <h3>Albums</h3>
@@ -8,7 +14,9 @@
 {% endfor %}
 <h3>Songs</h3>
 {% for song in songs %}
-<a target="_blank" href="{{ song.audio_file.url }}">{{ song.title }} - {{ song.artist_name }}</a> <br>
+<img class="mysong" id="song_{{song.id}}" width="200ps" height="200px" src="{{ song.song_logo.url }}" alt="">
+<!-- album_set.get().album_logo -->
+<paper-audio-player id="paper_song_{{song.id}}" src="{{song.audio_file.url}}" title="{{ song.title }} - {{ song.artist_name }}" color="#F05C38"></paper-audio-player>
 {% endfor %}
 {% else %}
 <h1>Hello, World!</h1>

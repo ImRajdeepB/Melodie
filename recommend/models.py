@@ -23,6 +23,7 @@ class Song(models.Model):
     year = models.CharField(max_length=4)
     genre = models.CharField(max_length=50, default='', blank=True)
     audio_file = models.FileField(upload_to='music')
+    song_logo = models.ImageField(upload_to='songs', default='')
     # listens = models.IntegerField(default=0, blank=True)
     # listeners = models.ManyToManyField(AppUser, through='Listen')
 
