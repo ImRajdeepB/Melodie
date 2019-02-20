@@ -4,32 +4,44 @@ from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 
 
 from .models import AppUser, Song, Listen, Album
 from .forms import AppUserForm
+from .tasks import manipulate
+from . import recommender
 
 
+@login_required(login_url='/login')
 def home(request):
     if request.user.is_authenticated:
         songs = Song.objects.all()
         albums = Album.objects.all()
         context = {'albums': albums, 'songs': songs}
-    return render(request, 'recommend/index.html', context=context)
-
-
-def login_view(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        # Redirect to a success page.
-        return HttpResponseRedirect('/')
+        uid = request.user.id
+        print(request.user.id)
+        pm = None
+        pm = manipulate(pm)
+        rec = pm.recommend(uid)
+        print(rec)
+        return render(request, 'recommend/index.html', context=context)
     else:
-        # Return an 'invalid login' error message.
-        return HttpResponse('invalid')
+        return render(request, '/templates/registration/login.html')
+
+
+# def login_view(request):
+#     username = request.POST['username']
+#     password = request.POST['password']
+#     user = authenticate(request, username=username, password=password)
+#     if user is not None:
+#         login(request, user)
+#         # Redirect to a success page.
+#         return HttpResponseRedirect('/')
+#     else:
+#         # Return an 'invalid login' error message.
+#         return HttpResponse('invalid')
 
 
 class SignUp(generic.CreateView):
@@ -38,8 +50,8 @@ class SignUp(generic.CreateView):
     template_name = 'recommend/signup.html'
 
 
-class HomeView(TemplateView):
-    template_name = 'recommend/index.html'
+# class HomeView(TemplateView):
+#     template_name = 'recommend/index.html'
 
 
 class AppUserFormView(View):

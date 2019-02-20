@@ -101,10 +101,12 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      $(".mysong").each(function() {
-        $("#paper_" + $(this).attr("id")).hide();
-        $(this).mousedown(function() {
-          $("#paper_" + $(this).attr("id")).toggle();
+      $(document).ready(function() {
+        $(".mysong").each(function() {
+          $("#paper_" + $(this).attr("id")).hide();
+          $(this).mousedown(function() {
+            $("#paper_" + $(this).attr("id")).toggle();
+          });
         });
       });
     </script>
